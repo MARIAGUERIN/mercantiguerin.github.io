@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Table Périodique des Outils IA & Notebooks — Enseignement Supérieur</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Barlow+Condensed:wght@300;400;600;700;900&display=swap');
+
+:root {
+  --bg: #07080f; --gold: #c9a84c; --gold-light: #e8ca7a;
+  --text: #e8e8f0; --dim: rgba(232,232,240,0.4);
+  --c1:#e84393;--c2:#3d8ef0;--c3:#34c77b;--c4:#a855f7;
+  --c5:#f59e0b;--c6:#0cc4a4;--c7:#ffd020;--c8:#7a8fa6;--c9:#f04f4f;
+  --sz:70px; --gap:4px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  background:var(--bg); color:var(--text); font-family:'Barlow Condensed',sans-serif;
+  padding:24px 18px 32px; min-height:100vh;
+  background-image:
+    radial-gradient(ellipse 800px 500px at 20% 30%,rgba(201,168,76,.04) 0%,transparent 70%),
+    radial-gradient(ellipse 600px 400px at 80% 70%,rgba(61,142,240,.04) 0%,transparent 70%);
+}
+.wrap{max-width:1350px;margin:0 auto;}
+
+/* HEADER */
+.header{text-align:center;margin-bottom:22px;}
+.eyebrow{font-size:10.5px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);opacity:.75;margin-bottom:7px;}
+h1{
+  font-size:clamp(1.5rem,3.2vw,2.6rem);font-weight:900;letter-spacing:.04em;
+  text-transform:uppercase;line-height:1;
+  background:linear-gradient(135deg,var(--gold) 0%,#f5e0a0 50%,var(--gold) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.sub{font-size:12px;color:var(--dim);margin-top:6px;letter-spacing:.14em;text-transform:uppercase;}
+
+/* TABLE */
+.scroll{overflow-x:auto;padding-bottom:8px;}
+.table{
+  display:grid;
+  grid-template-columns:repeat(18,var(--sz));
+  grid-template-rows:repeat(5,var(--sz)) 26px repeat(2,var(--sz));
+  column-gap:var(--gap);row-gap:var(--gap);
+  width:max-content;margin:0 auto;position:relative;
+}
+
+/* ELEMENT */
+.el{
+  width:var(--sz);height:var(--sz);border-radius:5px;padding:4px 5px 5px;
+  display:flex;flex-direction:column;cursor:pointer;border:1px solid transparent;
+  transition:transform .12s ease,box-shadow .12s ease;
+  position:relative;animation:fadeIn .3s ease both;
+}
+@keyframes fadeIn{from{opacity:0;transform:scale(.92);}to{opacity:1;transform:scale(1);}}
+@keyframes flash{
+  0%  {box-shadow:none;transform:scale(1);}
+  25% {box-shadow:0 0 0 3px rgba(201,168,76,.9),0 0 30px rgba(201,168,76,.55);transform:scale(1.12);}
+  65% {box-shadow:0 0 0 2px rgba(201,168,76,.4);transform:scale(1.05);}
+  100%{box-shadow:none;transform:scale(1);}
+}
+.el:hover{transform:scale(1.16);z-index:200;border-color:rgba(255,255,255,.22)!important;}
+.el.flash{animation:flash .95s ease forwards!important;z-index:300;}
+.el.hover-link{border-color:rgba(201,168,76,.5)!important;background:rgba(201,168,76,.07)!important;}
+
+.el .num{font-family:'Space Mono',monospace;font-size:8px;opacity:.5;line-height:1;align-self:flex-start;}
+.el .sym{font-family:'Space Mono',monospace;font-size:18px;font-weight:700;line-height:1.05;margin-top:1px;letter-spacing:-.03em;}
+.el .nm {font-size:7.5px;font-weight:600;text-align:center;margin-top:auto;line-height:1.15;opacity:.88;}
+
+/* CATEGORY COLORS */
+.c1{background:linear-gradient(150deg,rgba(232,67,147,.22),rgba(232,67,147,.07));border-color:rgba(232,67,147,.32)}.c1 .sym{color:#f48fbf}.c1:hover{box-shadow:0 6px 28px rgba(232,67,147,.4)}
+.c2{background:linear-gradient(150deg,rgba(61,142,240,.22),rgba(61,142,240,.07));border-color:rgba(61,142,240,.32)}.c2 .sym{color:#82b4f5}.c2:hover{box-shadow:0 6px 28px rgba(61,142,240,.4)}
+.c3{background:linear-gradient(150deg,rgba(52,199,123,.22),rgba(52,199,123,.07));border-color:rgba(52,199,123,.32)}.c3 .sym{color:#7de8ae}.c3:hover{box-shadow:0 6px 28px rgba(52,199,123,.4)}
+.c4{background:linear-gradient(150deg,rgba(168,85,247,.22),rgba(168,85,247,.07));border-color:rgba(168,85,247,.32)}.c4 .sym{color:#c88aff}.c4:hover{box-shadow:0 6px 28px rgba(168,85,247,.4)}
+.c5{background:linear-gradient(150deg,rgba(245,158,11,.22),rgba(245,158,11,.07));border-color:rgba(245,158,11,.32)}.c5 .sym{color:#fbbf60}.c5:hover{box-shadow:0 6px 28px rgba(245,158,11,.4)}
+.c6{background:linear-gradient(150deg,rgba(12,196,164,.22),rgba(12,196,164,.07));border-color:rgba(12,196,164,.32)}.c6 .sym{color:#5de0c8}.c6:hover{box-shadow:0 6px 28px rgba(12,196,164,.4)}
+.c7{background:linear-gradient(150deg,rgba(255,208,32,.22),rgba(255,208,32,.07));border-color:rgba(255,208,32,.32)}.c7 .sym{color:#ffe066}.c7:hover{box-shadow:0 6px 28px rgba(255,208,32,.4)}
+.c8{background:linear-gradient(150deg,rgba(122,143,166,.22),rgba(122,143,166,.07));border-color:rgba(122,143,166,.32)}.c8 .sym{color:#a8bfcf}.c8:hover{box-shadow:0 6px 28px rgba(122,143,166,.4)}
+.c9{background:linear-gradient(150deg,rgba(240,79,79,.22),rgba(240,79,79,.07));border-color:rgba(240,79,79,.32)}.c9 .sym{color:#f58585}.c9:hover{box-shadow:0 6px 28px rgba(240,79,79,.4)}
+
+/* WEBSITE — gold special */
+.c0{background:linear-gradient(150deg,rgba(201,168,76,.28),rgba(201,168,76,.09));border-color:rgba(201,168,76,.6);}
+.c0 .sym{color:var(--gold);font-size:15px;}
+.c0 .num{color:var(--gold);opacity:.8;font-size:10px;}
+.c0 .nm {color:var(--gold-light);opacity:.95;font-size:7px;}
+.c0:hover{box-shadow:0 6px 28px rgba(201,168,76,.55);}
+
+/* INDICATOR */
+.ind{
+  width:var(--sz);height:var(--sz);border-radius:5px;
+  border:1px dashed rgba(255,255,255,.14);background:rgba(255,255,255,.02);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
+  cursor:pointer;transition:border-color .18s,background .18s,box-shadow .18s;
+}
+.ind:hover{border-color:rgba(201,168,76,.55)!important;background:rgba(201,168,76,.06)!important;box-shadow:0 0 14px rgba(201,168,76,.22);}
+.ind .ind-n{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;opacity:.65;}
+.ind .ind-l{font-size:8px;text-transform:uppercase;letter-spacing:.07em;opacity:.45;text-align:center;}
+
+/* SEPARATOR */
+.sep{grid-column:1/-1;grid-row:6;display:flex;align-items:center;gap:12px;padding:0 2px;}
+.sep-txt{font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);opacity:.45;white-space:nowrap;}
+.sep-line{flex:1;height:1px;background:linear-gradient(to right,rgba(201,168,76,.25),transparent);}
+
+/* BOTTOM LABELS */
+.blabel{display:flex;align-items:center;justify-content:center;}
+.blabel span{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;writing-mode:vertical-rl;transform:rotate(180deg);opacity:.55;}
+
+/* TOOLTIP */
+#tip{
+  position:fixed;background:#0f1025;border:1px solid rgba(201,168,76,.6);border-radius:8px;
+  padding:12px 16px;width:244px;z-index:9999;pointer-events:none;opacity:0;transition:opacity .1s;
+  box-shadow:0 12px 48px rgba(0,0,0,.85);
+}
+#tip.show{opacity:1;}
+#tip .t-sym {font-family:'Space Mono',monospace;font-size:26px;font-weight:700;line-height:1;}
+#tip .t-name{font-size:15px;font-weight:700;color:var(--gold);margin-top:2px;}
+#tip .t-cat {font-size:9.5px;text-transform:uppercase;letter-spacing:.12em;opacity:.5;margin:5px 0 8px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,.07);}
+#tip .t-desc{font-size:11.5px;line-height:1.55;opacity:.82;}
+
+/* LEGEND */
+.legend{
+  display:flex;flex-wrap:wrap;gap:7px 14px;justify-content:center;
+  margin:18px auto 0;padding:14px 22px;
+  background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.06);
+  border-radius:8px;width:max-content;max-width:100%;
+}
+.li{display:flex;align-items:center;gap:7px;font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--dim);}
+.ls{width:13px;height:13px;border-radius:3px;opacity:.85;flex-shrink:0;}
+.footer{text-align:center;margin-top:12px;font-size:9.5px;color:var(--dim);letter-spacing:.12em;opacity:.55;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="header">
+    <div class="eyebrow">Ressource Pédagogique · BTS &nbsp;·&nbsp; IUT &nbsp;·&nbsp; Licence &nbsp;·&nbsp; Master</div>
+    <h1>Table Périodique des Outils IA &amp; Notebooks</h1>
+    <div class="sub">Enseignement Supérieur Français &nbsp;·&nbsp; 69 outils répertoriés &nbsp;·&nbsp; Édition 2025</div>
+  </header>
+  <div class="scroll"><div class="table" id="table"></div></div>
+  <div class="legend" id="legend"></div>
+  <div class="footer">mariamercantiguerin.com &nbsp;·&nbsp; Survolez pour la description · Cliquez les cellules ↓ (53–60 / 61–68) pour illuminer les rangées du bas &nbsp;·&nbsp; Inspiré de Mark Anderson</div>
+</div>
+
+<div id="tip">
+  <div class="t-sym"  id="ts"></div>
+  <div class="t-name" id="tn"></div>
+  <div class="t-cat"  id="tc"></div>
+  <div class="t-desc" id="td"></div>
+</div>
+
+<script>
+const CATS={1:'IA Conversationnelle',2:'Notebooks IA',3:'Notes & PKM',4:'Veille & Recherche',5:'Création Pédagogique',6:'Collaboration',7:'Évaluation Interactive',8:'Gestion de Cours (LMS)',9:'Audio & Vidéo IA'};
+const COLORS={1:'#e84393',2:'#3d8ef0',3:'#34c77b',4:'#a855f7',5:'#f59e0b',6:'#0cc4a4',7:'#ffd020',8:'#7a8fa6',9:'#f04f4f'};
+
+const ELS=[
+  // P1
+  {n:1,sym:'ChG',name:'ChatGPT',cat:1,col:1,row:1,desc:"IA conversationnelle d'OpenAI. Génère textes, code et analyses. Le plus utilisé dans l'enseignement supérieur mondial. À intégrer avec discernement dans vos pédagogies actives."},
+  {n:2,sym:'NLM',name:'NotebookLM',cat:2,col:18,row:1,desc:"Carnet de recherche IA de Google. Résume vos PDF, notes et slides, et génère des podcasts audio automatiques à partir de vos sources. Idéal pour préparer un cours."},
+  // P2
+  {n:3,sym:'Cl',name:'Claude',cat:1,col:1,row:2,desc:"IA d'Anthropic, nuancée et rigoureuse. Excellente pour l'analyse de textes longs, la correction et la rigueur académique. Très fiable sur le français."},
+  {n:4,sym:'Gm',name:'Gemini',cat:1,col:2,row:2,desc:"IA multimodale de Google DeepMind. Analyse images et documents, intègre nativement Google Workspace. Parfait pour les établissements GSuite."},
+  {n:5,sym:'No',name:'Notion',cat:3,col:13,row:2,desc:"Espace de travail tout-en-un avec IA intégrée. Structurez cours, ressources pédagogiques et suivi étudiants dans un seul espace."},
+  {n:6,sym:'Os',name:'Obsidian',cat:3,col:14,row:2,desc:"Notes en Markdown avec graphe de connaissances. Construisez votre base de savoirs personnelle en réseau. Open source, local, sans abonnement."},
+  {n:7,sym:'Zo',name:'Zotero',cat:4,col:15,row:2,desc:"Gestionnaire de références bibliographiques open source. Standard académique francophone pour bibliographies, citations et gestion du corpus."},
+  {n:8,sym:'El',name:'Elicit',cat:4,col:16,row:2,desc:"IA d'analyse de littérature scientifique. Extrait automatiquement résultats, méthodes et conclusions de centaines d'articles."},
+  {n:9,sym:'Cv',name:'Canva',cat:5,col:17,row:2,desc:"Design graphique accessible avec IA générative. Milliers de templates pour supports pédagogiques professionnels. Gratuit pour l'éducation."},
+  {n:10,sym:'Gn',name:'Genially',cat:5,col:18,row:2,desc:"Contenus interactifs et présentations animées embarquables dans Moodle. Très répandu dans l'enseignement supérieur français."},
+  // P3
+  {n:11,sym:'Co',name:'Copilot',cat:1,col:1,row:3,desc:"Assistant IA Microsoft intégré à Word, Teams, PowerPoint et Excel. Privilégiez-le si votre établissement utilise Microsoft 365 Education."},
+  {n:12,sym:'Mi',name:'Mistral',cat:1,col:2,row:3,desc:"Modèle IA français open source de référence. Souveraineté numérique garantie, excellente performance sur le français et conformité RGPD."},
+  {n:13,sym:'On',name:'OneNote',cat:3,col:13,row:3,desc:"Cahier numérique Microsoft intégré à Teams. Partage de cours, annotations manuscrites et collaboration étudiants en temps réel."},
+  {n:14,sym:'Ev',name:'Evernote',cat:3,col:14,row:3,desc:"Carnet de notes multi-supports synchronisé sur tous vos appareils. Web clipping, organisation par tags. Vétéran fiable."},
+  {n:15,sym:'Mn',name:'Mendeley',cat:4,col:15,row:3,desc:"Gestionnaire de références Elsevier avec réseau social académique et lecteur PDF annoté intégré."},
+  {n:16,sym:'Cs',name:'Consensus',cat:4,col:16,row:3,desc:"Moteur de recherche de preuves scientifiques avec synthèse IA des résultats. Répond à une question de recherche en agrégeant les études publiées."},
+  {n:17,sym:'Ga',name:'Gamma',cat:5,col:17,row:3,desc:"Création automatique de présentations et documents avec IA en quelques minutes à partir d'un prompt. Résultats visuels et professionnels."},
+  {n:18,sym:'H5P',name:'H5P',cat:5,col:18,row:3,desc:"Contenus interactifs libres (quiz, vidéos, exercices, timeline) embarquables dans Moodle, WordPress et Canvas LMS. Incontournable."},
+  // P4
+  {n:19,sym:'LC',name:'Le Chat',cat:1,col:1,row:4,desc:"Interface grand public de Mistral AI. Entièrement en français, gratuit, hébergé en Europe et conforme au RGPD européen."},
+  {n:20,sym:'Px',name:'Perplexity',cat:1,col:2,row:4,desc:"Moteur de recherche IA avec sources citées en temps réel. Alternative fiable à Google pour la veille académique."},
+  {n:21,sym:'Ju',name:'Jupyter',cat:2,col:3,row:4,desc:"Notebook interactif Python et R. Standard pour enseigner la data science, la statistique et le Machine Learning en IUT, BUT et licence pro."},
+  {n:22,sym:'GCo',name:'Colab',cat:2,col:4,row:4,desc:"Jupyter dans le cloud Google avec GPU gratuits. Idéal pour les TPs de Machine Learning sans installation locale."},
+  {n:23,sym:'Dn',name:'Deepnote',cat:2,col:5,row:4,desc:"Notebook collaboratif cloud pour équipes data. Commentaires en ligne, environnements partagés. Parfait pour les projets de groupe."},
+  {n:24,sym:'Ob',name:'Observable',cat:2,col:6,row:4,desc:"Notebook JavaScript pour la visualisation de données interactive et partageable en ligne. Idéal pour les cours de dataviz."},
+  {n:25,sym:'Mm',name:'Marimo',cat:2,col:7,row:4,desc:"Notebook Python réactif de nouvelle génération. Partageable comme une application web interactive. Alternative moderne à Jupyter."},
+  {n:26,sym:'Lg',name:'Logseq',cat:3,col:8,row:4,desc:"Outil de pensée en réseau entièrement open source. Notes en Markdown avec graphe de liens dynamique. Vos données restent locales."},
+  {n:27,sym:'Cp',name:'Capacities',cat:3,col:9,row:4,desc:"PKM avec types d'objets sémantiques (livre, projet, idée). Structurez vos connaissances comme une base de données relationnelle personnelle."},
+  {n:28,sym:'RR',name:'Res.Rabbit',cat:4,col:10,row:4,desc:"Exploration visuelle de graphes de citations. Découvrez l'état de l'art d'un domaine en naviguant dans les connexions entre articles."},
+  {n:29,sym:'SeS',name:'Sem.Scholar',cat:4,col:11,row:4,desc:"Moteur de recherche académique IA de l'Allen Institute. 200M+ articles indexés avec résumé TLDR automatique et alertes citations."},
+  {n:30,sym:'CnP',name:'Conn.Papers',cat:4,col:12,row:4,desc:"Visualisation des connexions entre articles scientifiques sous forme de graphe. Cartographiez rapidement un champ de recherche."},
+  {n:31,sym:'Mro',name:'Miro',cat:6,col:13,row:4,desc:"Tableau blanc collaboratif infini. Brainstorming, carte mentale, design thinking et rétrospective en classe, en présentiel ou à distance."},
+  {n:32,sym:'Pd',name:'Padlet',cat:6,col:14,row:4,desc:"Mur collaboratif simple et intuitif. Recueil de contributions étudiantes (textes, images, vidéos, liens) en temps réel. Gratuit pour l'éducation."},
+  {n:33,sym:'Wc',name:'Wooclap',cat:7,col:15,row:4,desc:"Sondages, questions ouvertes et quiz en temps réel depuis n'importe quel appareil. L'outil d'interaction le plus adopté dans le supérieur FR."},
+  {n:34,sym:'Mt',name:'Mentimeter',cat:7,col:16,row:4,desc:"Présentations interactives avec votes, nuages de mots et quiz en direct. Engagement étudiant immédiat. Résultats visuels frappants."},
+  {n:35,sym:'Kah',name:'Kahoot',cat:7,col:17,row:4,desc:"Quiz gamifiés et compétitifs pour l'apprentissage actif. Très efficace pour la révision et l'engagement en BTS, IUT et BUT."},
+  {n:36,sym:'Qz',name:'Quizlet',cat:7,col:18,row:4,desc:"Flashcards et exercices adaptatifs avec IA. Excellent pour la mémorisation de vocabulaire technique, formules et définitions."},
+  // P5
+  {n:37,sym:'Gk',name:'Grok',cat:1,col:1,row:5,desc:"IA de xAI avec accès en temps réel à l'actualité X/Twitter. Utile pour la veille sur les tendances et l'analyse de discours sociaux."},
+  {n:38,sym:'MAI',name:'Meta AI',cat:1,col:2,row:5,desc:"IA de Meta basée sur Llama 3. Disponible dans WhatsApp et Instagram. Modèle open source téléchargeable librement, très performant."},
+  {n:39,sym:'Pi',name:'Pi',cat:1,col:3,row:5,desc:"IA conversationnelle empathique d'Inflection AI. Qualité d'écoute et d'accompagnement unique. Idéale pour explorer l'IA relationnelle en cours."},
+  {n:40,sym:'Rf',name:'Roam',cat:3,col:7,row:5,desc:"Prise de notes en réseau pour pensée non-linéaire. Précurseur du mouvement PKM (Personal Knowledge Management). Liens bidirectionnels natifs."},
+  {n:41,sym:'Cr',name:'Craft',cat:3,col:8,row:5,desc:"Outil de documentation élégant pour macOS et iOS. Parfait pour produire des supports de cours soignés, partageables en pages web."},
+  {n:42,sym:'Kl',name:'Klaxoon',cat:6,col:11,row:5,desc:"Suite française d'animation de formations synchrones et asynchrones. Activités, quiz, brainstorming. Fort ancrage dans le supérieur FR."},
+  {n:43,sym:'Fj',name:'FigJam',cat:6,col:12,row:5,desc:"Tableau blanc de Figma pour l'idéation et la co-conception. Idéal pour les cours de design, UX/UI et prototypage rapide."},
+  {n:44,sym:'Mu',name:'Mural',cat:6,col:13,row:5,desc:"Espace de collaboration visuelle pour équipes. Riche bibliothèque de templates pédagogiques : SWOT, mind map, Kanban, Design Sprint."},
+  {n:45,sym:'Bk',name:'Beekast',cat:7,col:14,row:5,desc:"Animation interactive de formations françaises. Sondages, quiz, brainstorming et activités collaboratives. Intégration PowerPoint."},
+  {n:46,sym:'Sc',name:'Socrative',cat:7,col:15,row:5,desc:"Évaluation formative rapide. Questions en direct, exit tickets ou devoirs auto-corrigés avec analytics détaillés par étudiant."},
+  {n:47,sym:'Pr',name:'Prezi',cat:5,col:16,row:5,desc:"Présentations dynamiques non-linéaires et zoomables. Idéal pour des exposés visuels engageants qui rompent avec le format slide classique."},
+  {n:48,sym:'Vi',name:'Visme',cat:5,col:17,row:5,desc:"Infographies, présentations et visuels pédagogiques. Nombreux templates professionnels, graphiques interactifs et brand kit."},
+  {n:49,sym:'BAi',name:'Beautif.AI',cat:5,col:18,row:5,desc:"Mise en page automatique de présentations par IA. Vos Smart Slides s'adaptent au contenu et maintiennent la cohérence visuelle."},
+  // ROW 7 — LMS
+  {n:53,sym:'Md',name:'Moodle',cat:8,col:3,row:7,desc:"LMS open source, standard dans les universités et IUT français. Quiz, devoirs, forums, SCORM, H5P et suivi détaillé des apprenants."},
+  {n:54,sym:'CaL',name:'Canvas LMS',cat:8,col:4,row:7,desc:"LMS moderne et intuitif avec analytics pédagogiques avancés. Interface étudiants très appréciée. Intégrations riches avec outils tiers."},
+  {n:55,sym:'GCl',name:'G.Classroom',cat:8,col:5,row:7,desc:"Gestion de classe Google. Simple et efficace pour partager ressources, distribuer devoirs et renvoyer corrections dans l'écosystème GSuite."},
+  {n:56,sym:'Bb',name:'Blackboard',cat:8,col:6,row:7,desc:"LMS institutionnel puissant avec parcours adaptatifs, outils d'évaluation avancés, grilles de rubrics et analytics comportementaux."},
+  {n:57,sym:'Mh',name:'Mahara',cat:8,col:7,row:7,desc:"Portfolio numérique d'apprentissage open source. Valorise les compétences étudiantes par des preuves multimédia. Couplé à Moodle."},
+  {n:58,sym:'Ed',name:'Edunao',cat:8,col:8,row:7,desc:"LMS français hébergé, basé sur Moodle. Support pédagogique dédié, conformité RGPD et hébergement souverain garantis."},
+  {n:59,sym:'MTe',name:'Teams Edu',cat:8,col:9,row:7,desc:"Microsoft Teams for Education. Gestion de classe, devoirs, notes et grilles d'évaluation intégrés à l'écosystème Microsoft 365."},
+  {n:60,sym:'Pk',name:'Panopto',cat:8,col:10,row:7,desc:"Plateforme de capture et gestion vidéo pour l'enseignement. Quizzes intégrés dans les vidéos et analytics de visionnage par étudiant."},
+  // ROW 8 — Audio/Vidéo IA
+  {n:61,sym:'Ds',name:'Descript',cat:9,col:3,row:8,desc:"Édition audio et vidéo par le texte. Transcription automatique, suppression des blancs, overdub vocal. Révolutionne la production de podcasts pédagogiques."},
+  {n:62,sym:'Lm',name:'Loom',cat:9,col:4,row:8,desc:"Enregistrement vidéo rapide avec résumé IA automatique. Parfait pour les feedbacks asynchrones aux étudiants et la pédagogie inversée."},
+  {n:63,sym:'Sy',name:'Synthesia',cat:9,col:5,row:8,desc:"Vidéos pédagogiques avec avatars IA réalistes. Créez des cours vidéo professionnels sans caméra ni montage. 140+ langues supportées."},
+  {n:64,sym:'11L',name:'ElevenLabs',cat:9,col:6,row:8,desc:"Synthèse vocale IA ultra-réaliste en français. Narrateur professionnel pour cours en ligne, podcasts et ressources audio accessibles."},
+  {n:65,sym:'Hg',name:'HeyGen',cat:9,col:7,row:8,desc:"Avatars IA et traduction vidéo automatique avec lip-sync. Déclinez vos cours en plusieurs langues pour un public international."},
+  {n:66,sym:'Cc',name:'CapCut',cat:9,col:8,row:8,desc:"Montage vidéo IA pour réseaux sociaux. Sous-titres automatiques, templates viraux et effets. Idéal pour les contenus pédagogiques courts."},
+  {n:67,sym:'Wh',name:'Whisper',cat:9,col:9,row:8,desc:"Transcription audio open source d'OpenAI. Précision remarquable sur le français parlé. Intégrable localement — vos données restent privées."},
+  {n:68,sym:'Nt',name:'Notta',cat:9,col:10,row:8,desc:"Transcription et résumé automatiques de réunions et cours en temps réel. Export structuré avec chapitres, action items et points clés."},
+];
+
+const INDS=[
+  {nums:'53–60',label:'LMS ↓',       col:4,row:5,targetRow:7},
+  {nums:'61–68',label:'Audio/Vidéo ↓',col:5,row:5,targetRow:8},
+];
+
+const table=document.getElementById('table');
+const tip=document.getElementById('tip');
+
+// Render elements
+let idx=0;
+ELS.forEach(e=>{
+  const d=document.createElement('div');
+  d.className=`el c${e.cat}`;
+  d.style.cssText=`grid-column:${e.col};grid-row:${e.row};animation-delay:${idx*8}ms`;
+  d.setAttribute('data-gridrow',e.row);
+  d.innerHTML=`<span class="num">${e.n}</span><span class="sym">${e.sym}</span><span class="nm">${e.name}</span>`;
+  Object.assign(d.dataset,{sym:e.sym,name:e.name,cat:e.cat,desc:e.desc});
+  d.addEventListener('mouseenter',showTip);
+  d.addEventListener('mousemove',moveTip);
+  d.addEventListener('mouseleave',hideTip);
+  table.appendChild(d);
+  idx++;
+});
+
+// Website element (col 9, row 1) — clickable, gold
+const site=document.createElement('div');
+site.className='el c0';
+site.style.cssText='grid-column:9;grid-row:1;cursor:pointer;animation-delay:0ms';
+site.setAttribute('data-gridrow','1');
+site.innerHTML=`<span class="num">★</span><span class="sym">MMG</span><span class="nm">mariamercanti<br>guerin.com</span>`;
+site.addEventListener('click',()=>window.open('https://mariamercantiguerin.com','_blank'));
+site.addEventListener('mouseenter',e=>{
+  document.getElementById('ts').textContent='MMG';
+  document.getElementById('ts').style.color='#c9a84c';
+  document.getElementById('tn').textContent='mariamercantiguerin.com';
+  document.getElementById('tc').textContent='Hub de ressources pédagogiques libres';
+  document.getElementById('td').textContent="Cours, articles et outils en IA & marketing digital en accès libre. Par Maria Mercanti-Guérin, MCF HDR IAE Paris-Sorbonne. Cliquez pour visiter →";
+  tip.classList.add('show');moveTip(e);
+});
+site.addEventListener('mousemove',moveTip);
+site.addEventListener('mouseleave',hideTip);
+table.appendChild(site);
+
+// Flash utility
+function flashRow(targetRow){
+  table.querySelectorAll(`.el[data-gridrow="${targetRow}"]`).forEach(el=>{
+    el.classList.remove('flash');
+    void el.offsetWidth;
+    el.classList.add('flash');
+    el.addEventListener('animationend',()=>el.classList.remove('flash'),{once:true});
+  });
+}
+
+// Indicator cells — linked to bottom rows
+INDS.forEach(i=>{
+  const d=document.createElement('div');
+  d.className='ind';
+  d.style.cssText=`grid-column:${i.col};grid-row:${i.row}`;
+  d.innerHTML=`<div class="ind-n">${i.nums}</div><div class="ind-l">${i.label}</div>`;
+  d.addEventListener('click',()=>{
+    flashRow(i.targetRow);
+    const first=table.querySelector(`.el[data-gridrow="${i.targetRow}"]`);
+    if(first)first.scrollIntoView({behavior:'smooth',block:'center'});
+  });
+  d.addEventListener('mouseenter',()=>{
+    table.querySelectorAll(`.el[data-gridrow="${i.targetRow}"]`).forEach(el=>el.classList.add('hover-link'));
+  });
+  d.addEventListener('mouseleave',()=>{
+    table.querySelectorAll('.el.hover-link').forEach(el=>el.classList.remove('hover-link'));
+  });
+  table.appendChild(d);
+});
+
+// Separator
+const sep=document.createElement('div');
+sep.className='sep';
+sep.style.cssText='grid-column:1/-1;grid-row:6';
+sep.innerHTML='<span class="sep-txt">Gestion de Cours · Audio & Vidéo IA</span><div class="sep-line"></div>';
+table.appendChild(sep);
+
+// Bottom labels
+[{row:7,cat:8,label:'LMS'},{row:8,cat:9,label:'Audio & Vidéo'}].forEach(({row,cat,label})=>{
+  const d=document.createElement('div');
+  d.className='blabel';
+  d.style.cssText=`grid-column:1/3;grid-row:${row}`;
+  d.innerHTML=`<span style="color:${COLORS[cat]}">${label}</span>`;
+  table.appendChild(d);
+});
+
+// Tooltip
+function showTip(e){
+  const el=e.currentTarget;
+  document.getElementById('ts').textContent=el.dataset.sym;
+  document.getElementById('ts').style.color=COLORS[el.dataset.cat];
+  document.getElementById('tn').textContent=el.dataset.name;
+  document.getElementById('tc').textContent=CATS[el.dataset.cat];
+  document.getElementById('td').textContent=el.dataset.desc;
+  tip.classList.add('show');moveTip(e);
+}
+function moveTip(e){
+  let x=e.clientX+16,y=e.clientY-12;
+  if(x+244>window.innerWidth-8)x=e.clientX-260;
+  if(y+180>window.innerHeight-8)y=e.clientY-180;
+  tip.style.left=x+'px';tip.style.top=y+'px';
+}
+function hideTip(){tip.classList.remove('show');}
+
+// Legend
+const legend=document.getElementById('legend');
+Object.entries(CATS).forEach(([k,name])=>{
+  const d=document.createElement('div');
+  d.className='li';
+  d.innerHTML=`<div class="ls" style="background:${COLORS[k]}"></div><span>${name}</span>`;
+  legend.appendChild(d);
+});
+const sLi=document.createElement('div');
+sLi.className='li';
+sLi.innerHTML=`<div class="ls" style="background:#c9a84c"></div><span>Hub Pédagogique (MMG)</span>`;
+legend.appendChild(sLi);
+</script>
+</body>
+</html>
